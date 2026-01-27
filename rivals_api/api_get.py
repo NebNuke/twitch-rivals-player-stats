@@ -14,7 +14,7 @@ def get_api_key():
     # Find the secrets.txt file one level above this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.dirname(script_dir)
-    secrets_path = os.path.join(parent_dir, 'secrets.txt')
+    secrets_path = os.path.join(parent_dir, 'secrets/secrets.txt')
     api_key = ""
 
     # read your api key from a file
@@ -22,7 +22,7 @@ def get_api_key():
         lines = f.readlines()
         api_key = lines[5].strip()
 
-    logging.info(f"api_key retrieved successfully.")
+    logging.info(f"local api_key retrieved successfully.")
 
     return api_key
 

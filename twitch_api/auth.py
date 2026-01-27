@@ -18,7 +18,7 @@ parent_dir = os.path.dirname(script_dir)
 async def twitch_auth():
 
     # Find the secrets.txt file one level above this script
-    secrets_path = os.path.join(parent_dir, 'secrets.txt')
+    secrets_path = os.path.join(parent_dir, 'secrets/secrets.txt')
     twitch = None
     app_id = ""
     app_secret = "" 
@@ -46,18 +46,18 @@ async def twitch_auth():
 
         logger.info("Twitch initialized with user authentication.")
 
+        # Comment out 51 and 53 when not testing
+        # Test the authentication function
+        user = await first(twitch.get_users(logins='ApexDabi'))
+        # print the ID of your user or do whatever else you want with it
+        print(user)
+
         return twitch
         
     except Exception as e:
         logger.error(f"Failed to authenticate Twitch: {e}")
         return
     
-"""
-# Test the authentication function
-    user = await first(twitch.get_users(logins='NebNuke'))
-    # print the ID of your user or do whatever else you want with it
-    print(user.id)
 
-# run this example
+# Below command for testing purposes only.  Comment out when not testing.
 asyncio.run(twitch_auth())
-"""

@@ -1,3 +1,5 @@
 {
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay"
 }
