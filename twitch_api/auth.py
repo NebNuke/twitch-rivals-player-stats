@@ -46,11 +46,12 @@ async def twitch_auth():
 
         logger.info("Twitch initialized with user authentication.")
 
-        # Comment out 51 and 53 when not testing
         # Test the authentication function
+        logger.info("Testing Twitch authentication by fetching user info...")
         user = await first(twitch.get_users(logins='ApexDabi'))
         # print the ID of your user or do whatever else you want with it
         print(user)
+
 
         return twitch
         

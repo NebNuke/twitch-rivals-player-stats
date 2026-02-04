@@ -83,5 +83,3 @@ async def player_stats(username):
 # run this example
 asyncio.run(search_player("TouchingUrSups"))
 # asyncio.run(player_stats("ApexDabi"))
-
-# TouchingUrSups

@@ -2,3 +2,5 @@
 twitchAPI
 requests
 typing
+playsound3
+twitchio
