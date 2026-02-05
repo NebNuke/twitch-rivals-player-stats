@@ -87,42 +87,49 @@ def cheer_event_the_horse_is_here():
 async def handle_cheer_event(event):
     bits = event['event']['bits']
     user = event['event']['user_name']
+    type = event['event']['type']
     print(f"{user} cheered {bits} bits!")
 
-    # Special sound triggers for specific bit amounts
-    if bits == 1000:
-        cheer_event_bucky()
-    elif bits == 1001:
-        cheer_event_theburntpeanut_hooray()
-    elif bits == 1002:
-        cheer_event_theburntpeanut_lets_ride()
-    elif bits == 1003:
-        cheer_event_theburntpeanut_mhmmm_mhmmm()
-    elif bits == 1004:
-        cheer_event_ahh_horse_shit()
-    elif bits == 1005:
-        cheer_event_giant_horse_conch()
-    elif bits == 1006:
-        cheer_event_horse_race_music()
-    elif bits == 1007:
-        cheer_event_the_horse_is_here()
+    if type != "cheer":
+        print("Event type is not 'cheer'. Exiting handler.")
+        return
     else:
-        # Replace with whatever sound trigger you like
-        print("No special sound for this bit amount: ", bits)
+        print("Event type is 'cheer'. Proceeding with sound triggers.")
+
+        # Special sound triggers for specific bit amounts
+        if bits == 1000:
+            cheer_event_bucky()
+        elif bits == 1001:
+            cheer_event_theburntpeanut_hooray()
+        elif bits == 1002:
+            cheer_event_theburntpeanut_lets_ride()
+        elif bits == 1003:
+            cheer_event_theburntpeanut_mhmmm_mhmmm()
+        elif bits == 1004:
+            cheer_event_ahh_horse_shit()
+        elif bits == 1005:
+            cheer_event_giant_horse_conch()
+        elif bits == 1006:
+            cheer_event_horse_race_music()
+        elif bits == 1007:
+            cheer_event_the_horse_is_here()
+        else:
+            # Replace with whatever sound trigger you like
+            print("No special sound for this bit amount: ", bits)
 
 
 
-# Testing loop
-async def test_loop():
-    for bits in range(1000, 1008):  # 1000 to 1007 inclusive
-        test_event = {
-            'event': {
-                'bits': bits,
-                'user_name': 'NebNuke'
-            }
-        }
-        await handle_cheer_event(test_event)
-        await asyncio.sleep(0.5)  # Optional delay between events
+# # Testing loop
+# async def test_loop():
+#     for bits in range(1000, 1008):  # 1000 to 1007 inclusive
+#         test_event = {
+#             'event': {
+#                 'bits': bits,
+#                 'user_name': 'NebNuke'
+#             }
+#         }
+#         await handle_cheer_event(test_event)
+#         await asyncio.sleep(0.5)  # Optional delay between events
 
-# Run the test loop
-asyncio.run(test_loop())
+# # Run the test loop
+# asyncio.run(test_loop())

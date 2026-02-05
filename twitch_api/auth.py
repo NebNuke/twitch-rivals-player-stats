@@ -19,7 +19,6 @@ async def twitch_auth():
 
     # Find the secrets.txt file one level above this script
     secrets_path = os.path.join(parent_dir, 'secrets/secrets.txt')
-    twitch = None
     app_id = ""
     app_secret = "" 
 
@@ -35,23 +34,24 @@ async def twitch_auth():
         twitch = Twitch(app_id, app_secret)
 
         # Define required scopes
-        target_scope = [AuthScope.USER_READ_EMAIL]
+        target_scopes = [
+            AuthScope.CHANNEL_READ_REDEMPTIONS,
+            AuthScope.BITS_READ
+        ]
 
         # Run interactive OAuth flow (opens browser)
-        auth = UserAuthenticator(twitch, target_scope)
+        auth = UserAuthenticator(twitch, target_scopes)
         token, refresh_token = await auth.authenticate()
 
         # Apply and await user auth to twitch instance
-        await twitch.set_user_authentication(token, target_scope, refresh_token)
-
+        await twitch.set_user_authentication(token, target_scopes, refresh_token)
         logger.info("Twitch initialized with user authentication.")
 
-        # Test the authentication function
-        logger.info("Testing Twitch authentication by fetching user info...")
-        user = await first(twitch.get_users(logins='ApexDabi'))
-        # print the ID of your user or do whatever else you want with it
-        print(user)
-
+        # # Test the authentication function
+        # logger.info("Testing Twitch authentication by fetching user info...")
+        # user = await first(twitch.get_users(logins='ApexDabi'))
+        # # print the ID of your user or do whatever else you want with it
+        # print(user)
 
         return twitch
         
@@ -60,5 +60,5 @@ async def twitch_auth():
         return
     
 
-# Below command for testing purposes only.  Comment out when not testing.
-asyncio.run(twitch_auth())
+# # Below command for testing purposes only.  Comment out when not testing.
+# asyncio.run(twitch_auth())

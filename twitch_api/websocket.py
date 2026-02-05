@@ -1,32 +1,49 @@
 # ws_listener.py
 import asyncio
-from auth import TwitchAuth
+from hashlib import new
 from twitchAPI.eventsub.websocket import EventSubWebsocket
+from twitchAPI.twitch import Twitch
 from twitchAPI.type import AuthScope
+from twitchAPI.helper import first
 import os
+import channel_point_events as ch_pt_evts
+import cheer_events as chr_evts
+import auth
+import twitch_classes
 
 
 async def main():
     # Authenticate using your auth module
-    auth = await TwitchAuth()
-    twitch = await auth.authenticate()
+    twitch_auth = await auth.twitch_auth()
 
-    # # Get the Twitch user ID from the username
-    # user_info = await twitch.get_users(logins=[CHANNEL_NAME])
-    # user_id = user_info['data'][0]['id']
+    # Get the Twitch user ID from the username
+    user = await first(twitch_auth.get_users(logins='ApexDabi'))
 
-    # # Start the WebSocket listener
-    # eventsub = EventSubWebsocket(twitch)
-    # eventsub.start()
+    print("Authenticated Twitch user:", user)
+    user_id = user.id
+    print("User ID:", user_id)
 
-    # # Subscribe to the channel.cheer event
-    # await eventsub.listen_channel_cheer(user_id, handle_cheer_event)
+    # Start the WebSocket listener
+    eventsub = EventSubWebsocket(twitch_auth)
+    eventsub.start()
 
-    # print("WebSocket listener is running...")
+    print(twitch_auth.get_user_auth_scope())
 
-    # # Keep the script running
-    # while True:
-    #     await asyncio.sleep(1)
+    # Subscribe to the channel.point event
+    # await eventsub.listen_channel_points_automatic_reward_redemption_add_v2(user_id, ch_pt_evts.handle_channel_point_event)
+    await eventsub.listen_channel_points_automatic_reward_redemption_add(
+        user_id,
+        ch_pt_evts.handle_channel_point_event
+    )
+
+    # Subscribe to the channel.cheer event
+    # eventsub.listen_channel_cheer(user_id, chr_evts.handle_cheer_event)
+
+    print("WebSocket listener is running...")
+
+    # Keep the script running
+    while True:
+        await asyncio.sleep(1)
 
 # Run the listener
 asyncio.run(main())

@@ -40,3 +40,22 @@ class User:
         self.view_count = view_count
         self.email = email
         self.created_at = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ") if created_at else None
+
+# channel.bits.use
+class ch_bits_use: 
+    type: str
+    version: str
+    condition: str
+    transport: str
+
+    def __init__(
+        self,
+        type: str,
+        version: str,
+        condition: str,
+        transport: str
+    ) -> None:
+        self.type = type
+        self.version = version
+        self.condition = condition
+        self.transport = transport
