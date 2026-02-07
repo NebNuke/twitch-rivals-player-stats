@@ -26,7 +26,7 @@ async def handle_channel_point_event(event):
     cost = event['event']['cost']
     user = event['event']['user_name']
 
-    print(f"{user} used {cost} channel points!")
+    logging.info(f"{user} used {cost} channel points!")
 
     # Special sound triggers for specific bit amounts
     if cost == 2000:
@@ -35,7 +35,7 @@ async def handle_channel_point_event(event):
         channel_point_event_bucky()
     else:
         # Replace with whatever sound trigger you like
-        print("No special sound for this channel point cost: ", cost)
+        logging.info(f"No special sound for this channel point cost: {cost}")
 
 
 

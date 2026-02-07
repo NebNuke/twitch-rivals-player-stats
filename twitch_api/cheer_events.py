@@ -88,13 +88,13 @@ async def handle_cheer_event(event):
     bits = event['event']['bits']
     user = event['event']['user_name']
     type = event['event']['type']
-    print(f"{user} cheered {bits} bits!")
+    logging.info(f"{user} cheered {bits} bits!")
 
     if type != "cheer":
-        print("Event type is not 'cheer'. Exiting handler.")
+        logging.warning("Event type is not 'cheer'. Exiting handler.")
         return
     else:
-        print("Event type is 'cheer'. Proceeding with sound triggers.")
+        logging.info("Event type is 'cheer'. Proceeding with sound triggers.")
 
         # Special sound triggers for specific bit amounts
         if bits == 1000:
@@ -115,7 +115,7 @@ async def handle_cheer_event(event):
             cheer_event_the_horse_is_here()
         else:
             # Replace with whatever sound trigger you like
-            print("No special sound for this bit amount: ", bits)
+            logging.info(f"No special sound for this bit amount: {bits}")
 
 
 
